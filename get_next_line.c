@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 15:09:07 by gaerhard          #+#    #+#             */
-/*   Updated: 2018/11/16 12:24:05 by gaerhard         ###   ########.fr       */
+/*   Updated: 2018/11/16 19:07:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ int				get_next_line(const int fd, char **line)
 {
 	int				ret;
 	char			buf[BUFF_SIZE + 1];
-	static	char	*save[MAX_FD];
+	static	char	*save[OPEN_MAX];
 	char			*tmp;
 
 	if (fd < 0 || BUFF_SIZE <= 0 || !line || read(fd, buf, 0) < 0)
 		return (-1);
+	save[fd] = (!(save[fd]) ? ft_strnew(1) : save[fd]);
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
-		save[fd] = (!(save[fd]) ? ft_strnew(1) : save[fd]);
 		buf[ret] = '\0';
 		tmp = ft_strjoin(save[fd], buf);
 		free(save[fd]);
 		save[fd] = tmp;
-		if (ft_strchr(buf, '\n'))
+		if (ft_find_nl(buf) < ret)
 			break ;
 	}
 	if (ret == 0 && (!save[fd] || save[fd][0] == '\0'))
