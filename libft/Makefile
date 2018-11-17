@@ -6,7 +6,7 @@
 #    By: gaerhard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 11:40:17 by gaerhard          #+#    #+#              #
-#    Updated: 2018/11/12 15:49:30 by gaerhard         ###   ########.fr        #
+#    Updated: 2018/11/17 13:31:52 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,9 @@ SRCS = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 	   ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_split.c ft_sign.c ft_is_prime.c \
 	   ft_dotvect.c ft_abs.c ft_prodvect.c ft_scalevect.c ft_sign.c ft_sqrt.c \
 	   ft_sumvect.c ft_setvect.c
-INCLUDES = libft.h
+INCLUDES = ./includes
 OBJ = $(SRCS:.c=.o)
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -I $(INCLUDES)
 all: $(NAME)
 
 $(NAME) : $(OBJ)
@@ -39,5 +39,7 @@ clean :
 
 fclean : clean
 	/bin/rm -f $(NAME)
+
+compil : all clean
 
 re : fclean all
